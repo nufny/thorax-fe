@@ -67,7 +67,7 @@ def add_instance(instance: str) -> None:
     bonus_headers = {
         "Content-Types": "application/json;charset=utf-8",
     }
-    post_data = json.loads(open("in.json").read())
+    # post_data = json.loads(open("in.json").read())
     response = httpx.post(
         config_url,
         data=post_data,
