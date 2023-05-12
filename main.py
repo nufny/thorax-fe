@@ -1,10 +1,10 @@
-import httpx
 import json
 import tomllib
 
+import httpx
+
 with open("config.toml", "rb") as f:
     config = tomllib.load(f)
-
 
 config_url = f"https://{config['host']}/api/v1/pleroma/admin/config"
 headers = {"Authorization": f"Bearer {config['token']}"}
@@ -20,7 +20,7 @@ def get_configs(from_api=True) -> dict:
     return configs
 
 
-def get_instances() -> list[str]:
+def get_instances() -> list[dict[str, list[str]]]:
     configs = get_configs(from_api=True)
 
     mrf_simple = [
@@ -70,9 +70,11 @@ def add_instance(instance: str) -> None:
 
     response = httpx.post(
         config_url,
-        data=json.dumps(post_data),
+        json=post_data,
         headers=headers | bonus_headers,
     )
+
+    response.raise_for_status()
 
 
 def list_instances() -> list[str]:
@@ -84,4 +86,4 @@ def list_instances() -> list[str]:
 
 
 if __name__ == "__main__":
-    add_instance("test3")
+    add_instance("test1.example.org")
