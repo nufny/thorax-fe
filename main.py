@@ -3,7 +3,8 @@ import json
 
 
 config_url = "https://ak.zweitekassabitte.jetzt/api/v1/pleroma/admin/config"
-headers = {"Authorization": "Bearer [REDACTED FOR GIT]"}
+token = open("token").read().strip()
+headers = {"Authorization": "Bearer {token}"}
 
 
 def get_configs(from_api=True) -> dict:
