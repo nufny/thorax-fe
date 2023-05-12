@@ -13,7 +13,7 @@ headers = {"Authorization": f"Bearer {config['token']}"}
 def get_configs(from_api=True) -> dict:
     if from_api:
         response = httpx.get(config_url, headers=headers)
-
+        assert response.status_code == 200, f"{response.status_code}: {response.json()}"
         configs = response.json()["configs"]
     else:
         configs = json.loads(open("./out.json", "r").read())["configs"]
