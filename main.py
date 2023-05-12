@@ -79,10 +79,10 @@ def add_instance(instance: str) -> None:
 
 def list_instances() -> list[str]:
     instances = get_instances()
-    instances = [instance["tuple"][0] for instance in instances]
+    simple_instances = [instance["tuple"][0] for instance in instances]
 
-    instances.sort()
-    return instances
+    simple_instances.sort()
+    return simple_instances
 
 
 if __name__ == "__main__":
