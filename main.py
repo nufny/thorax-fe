@@ -38,9 +38,6 @@ def get_instances() -> list[str]:
 
 
 def add_instance(instance: str) -> None:
-    """
-    Currently doesn't work
-    """
     instances = get_instances()
     instances.append(
         {
@@ -54,7 +51,6 @@ def add_instance(instance: str) -> None:
     post_data = {
         "configs": [
             {
-                "db": [":accept"],
                 "group": ":pleroma",
                 "key": ":mrf_simple",
                 "value": [
@@ -69,16 +65,14 @@ def add_instance(instance: str) -> None:
         ]
     }
     bonus_headers = {
-        "Content-Types": "application/json;charset=utf-8",
+        "Content-Type": "application/json;charset=utf-8",
     }
-    # post_data = json.loads(open("in.json").read())
+
     response = httpx.post(
         config_url,
-        data=post_data,
+        data=json.dumps(post_data),
         headers=headers | bonus_headers,
     )
-    breakpoint()
-    print(response)
 
 
 def list_instances() -> list[str]:
@@ -90,4 +84,4 @@ def list_instances() -> list[str]:
 
 
 if __name__ == "__main__":
-    print(list_instances())
+    add_instance("test3")
