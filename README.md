@@ -1,3 +1,3 @@
-Small project to easily parse my instance's allow list
+Small project to easily parse and edit my instance's allow list
 
-To use please replace the url with your own instance's and get the bearer token from the admin fe using the network tab, it will be under Headers -> Request headers
+To use please rename the example config to just config.toml and replace the values
