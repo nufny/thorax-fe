@@ -1,10 +1,13 @@
 import httpx
 import json
+import tomllib
+
+with open("config.toml", "rb") as f:
+    config = tomllib.load(f)
 
 
-config_url = "https://ak.zweitekassabitte.jetzt/api/v1/pleroma/admin/config"
-token = open("token").read().strip()
-headers = {"Authorization": f"Bearer {token}"}
+config_url = f"https://{config['host']}/api/v1/pleroma/admin/config"
+headers = {"Authorization": f"Bearer {config['token']}"}
 
 
 def get_configs(from_api=True) -> dict:
