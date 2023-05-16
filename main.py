@@ -37,16 +37,8 @@ def get_instances() -> list[dict[str, list[str]]]:
     return instances
 
 
-def add_instance(instance: str) -> None:
+def construct_set_request() -> dict:
     instances = get_instances()
-    instances.append(
-        {
-            "tuple": [
-                instance,
-                "",
-            ]
-        }
-    )
 
     post_data = {
         "configs": [
@@ -64,6 +56,14 @@ def add_instance(instance: str) -> None:
             }
         ]
     }
+    return post_data
+
+
+def _get_instance_list_from_post_data(post_data: dict) -> list:
+    return post_data["configs"][0]["value"][0]["tuple"][1]
+
+
+def update_allowlist(post_data: dict) -> None:
     bonus_headers = {
         "Content-Type": "application/json;charset=utf-8",
     }
@@ -77,6 +77,39 @@ def add_instance(instance: str) -> None:
     response.raise_for_status()
 
 
+def add_instance(instance: str) -> None:
+    post_data = construct_set_request()
+    instance_list = _get_instance_list_from_post_data(post_data)
+    instance_list.append(
+        {
+            "tuple": [
+                instance,
+                "",
+            ]
+        }
+    )
+
+    update_allowlist(post_data)
+    print(f"Successfully added {instance}")
+
+
+def remove_instance(instance: str) -> None:
+    post_data = construct_set_request()
+    instance_list = _get_instance_list_from_post_data(post_data)
+
+    instance_names: list = [entry["tuple"][0] for entry in instance_list]
+    if instance not in instance_names:
+        raise ValueError(f'Instance: "{instance}" not in allowlist!')
+
+    for i in range(len(instance_list)):
+        if instance_list[i]["tuple"][0] == instance:
+            del instance_list[i]
+            break
+
+    update_allowlist(post_data)
+    print(f"Successfully removed {instance}")
+
+
 def list_instances() -> list[str]:
     instances = get_instances()
     simple_instances = [instance["tuple"][0] for instance in instances]
@@ -86,4 +119,8 @@ def list_instances() -> list[str]:
 
 
 if __name__ == "__main__":
-    add_instance("test1.example.org")
+    test_instance = "test1.example.org"
+    add_instance(test_instance)
+    assert test_instance in list_instances()
+    remove_instance(test_instance)
+    assert test_instance not in list_instances()
