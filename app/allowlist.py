@@ -78,7 +78,7 @@ def update_allowlist(post_data: dict) -> None:
     response.raise_for_status()
 
 
-def add_instance(instance: str) -> None:
+def add_instance(instance: str, reason: str = "") -> None:
     post_data = construct_set_request()
     instance_list = _get_instance_list_from_post_data(post_data)
     if instance in [inst["tuple"][0] for inst in instance_list]:
@@ -87,7 +87,7 @@ def add_instance(instance: str) -> None:
         {
             "tuple": [
                 instance,
-                "",
+                reason,
             ]
         }
     )
