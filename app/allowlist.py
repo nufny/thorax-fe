@@ -1,13 +1,12 @@
 import json
-import tomllib
 
 import httpx
 
-with open("config.toml", "rb") as f:
-    config = tomllib.load(f)
+from app.settings import get_settings
 
-config_url = f"https://{config['host']}/api/v1/pleroma/admin/config"
-headers = {"Authorization": f"Bearer {config['token']}"}
+settings = get_settings()
+config_url = f"https://{settings['host']}/api/v1/pleroma/admin/config"
+headers = {"Authorization": f"Bearer {settings['token']}"}
 
 
 def get_configs(from_api=True) -> dict:

@@ -2,3 +2,4 @@
 *.txt
 token
 config.toml
+*__pycache__
