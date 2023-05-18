@@ -31,6 +31,7 @@ def get_instances() -> list[dict[str, list[str]]]:
         "tuple"
     ][1]
 
+    # TODO: remove this later
     # Optional formatting for wiki table format
     # wikitable = '{| class="wikitable"\n|+!' + '\n|-\n|'.join(instances) + '\n|}'
     # print(wikitable)
