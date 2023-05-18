@@ -21,7 +21,7 @@ def get_configs(from_api=True) -> dict:
 
 
 def get_instances() -> list[dict[str, list[str]]]:
-    configs = get_configs(from_api=True)
+    configs = get_configs()
 
     mrf_simple = [
         config for config in configs if "db" in config and config["db"][0] == ":accept"
