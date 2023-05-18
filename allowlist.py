@@ -80,6 +80,8 @@ def update_allowlist(post_data: dict) -> None:
 def add_instance(instance: str) -> None:
     post_data = construct_set_request()
     instance_list = _get_instance_list_from_post_data(post_data)
+    if instance in [inst["tuple"][0] for inst in instance_list]:
+        raise ValueError(f"Attempting to add already added instance: {instance}")
     instance_list.append(
         {
             "tuple": [
