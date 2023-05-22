@@ -1,7 +1,8 @@
 from typing import Optional
 
-from django.shortcuts import render, loader
 from django.http import HttpResponse
+from django.shortcuts import loader, render
+
 import app.allowlist as allowlist
 from app.settings import get_settings
 
