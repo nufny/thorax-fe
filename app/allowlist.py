@@ -1,11 +1,6 @@
 from app.api import get_config, update_configs
 from app.models import Instance
 
-# TODO: remove this later
-# Optional formatting for wiki table format
-# wikitable = '{| class="wikitable"\n|+!' + '\n|-\n|'.join(instances) + '\n|}'
-# print(wikitable)
-
 
 def add_instance(instance_url: str, reason: str = "") -> None:
     config = get_config()
