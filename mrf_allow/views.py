@@ -3,8 +3,8 @@ from typing import Optional
 from django.http import HttpResponse
 from django.shortcuts import loader, render
 
-import app.allowlist as allowlist
-from app.settings import get_settings
+import thorax_core.allowlist as allowlist
+from thorax_core.settings import get_settings
 from mrf_allow.models import InstanceUrlForm
 
 

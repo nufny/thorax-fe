@@ -1,5 +1,5 @@
-from app.api import get_config, update_configs
-from app.models import Instance
+from thorax_core.api import get_config, update_configs
+from thorax_core.models import Instance
 
 
 def add_instance(instance_url: str, reason: str = "") -> None:

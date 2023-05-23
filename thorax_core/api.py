@@ -2,8 +2,8 @@ import json
 
 import httpx
 
-from app.models import Config
-from app.settings import get_settings
+from thorax_core.models import Config
+from thorax_core.settings import get_settings
 
 settings = get_settings()
 config_url = f"https://{settings['host']}/api/v1/pleroma/admin/config"
