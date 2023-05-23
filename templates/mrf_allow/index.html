@@ -7,11 +7,13 @@
 </head>
 
 <body>
+    <form action="/mrf_allow/" method="post">
     <p>Instances on <b>{{host}}</b>'s Allowlist</p>
-    <p><input></p>
-    <button>Add Instance</button>
-    <button>Remove Instance</button>
-    <div>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+    </form>
+        <div>
         {% if instance_list %}
         <ul>
             {% for instance in instance_list %}
@@ -19,7 +21,7 @@
             {% endfor %}
         </ul>
         {% else %}
-        <p>No polls are available.</p>
+        <p>No Instances are available.</p>
         {% endif %}
     </div>
 </body>
