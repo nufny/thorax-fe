@@ -25,9 +25,10 @@ class Config(pydantic.BaseModel):
     @classmethod
     def from_dict(cls, data: dict) -> "Config":
         mrf_simple = [
-            config for config in data if "db" in config and config["db"][0] == ":accept"
+            config
+            for config in data
+            if "db" in config and config["db"][0] == ":accept"
         ][0]
-
         instances = [
             tup for tup in mrf_simple["value"] if tup["tuple"][0] == ":accept"
         ][0]["tuple"][1]
