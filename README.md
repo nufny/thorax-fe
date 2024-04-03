@@ -1,3 +1,6 @@
-Small project to easily parse and edit my instance's allow list
+Small project to easily manage an [akkoma](https://akkoma.social) instance's mrf policies
+Currently supported policies include
+- Simplepolicy
+    - allow
 
-To use please rename the example config to just config.toml and replace the values
+To use rename the example config to just config.toml and replace values as appropriate
