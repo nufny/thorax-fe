@@ -18,5 +18,5 @@ from django.urls import include, path
 
 urlpatterns = [
     path("mrf_allow/", include("mrf_allow.urls")),
-    path("mrf_deny/", include("mrf_deny.urls"))
+    path("mrf_deny/", include("mrf_deny.urls")),
 ]

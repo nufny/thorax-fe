@@ -30,4 +30,3 @@ def list_instances() -> list[str]:
     denylist_urls = [instance.url for instance in config.denylist]
     denylist_urls.sort()
     return denylist_urls
-

@@ -1,5 +1,3 @@
-import json
-
 import httpx
 
 from thorax_core.models import Config

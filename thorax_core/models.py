@@ -27,22 +27,21 @@ class Config(pydantic.BaseModel):
     def from_dict(cls, data: dict) -> "Config":
         def parse_simple_policy(policy: str) -> list[dict]:
             config = [
-                config
-                for config in data
-                if "db" in config and policy in config["db"]
+                config for config in data if "db" in config and policy in config["db"]
             ]
             if len(config) == 0:
                 return []
             config = config[0]
-            return [
-                tup for tup in config["value"] if tup["tuple"][0] == policy
-            ][0]["tuple"][1]
+            return [tup for tup in config["value"] if tup["tuple"][0] == policy][0][
+                "tuple"
+            ][1]
+
         allowlist = parse_simple_policy(":accept")
         denylist = parse_simple_policy(":reject")
 
         return Config(
             allowlist=[Instance.from_dict(instance) for instance in allowlist],
-            denylist=[Instance.from_dict(instance) for instance in denylist]
+            denylist=[Instance.from_dict(instance) for instance in denylist],
         )
 
     def to_dict(self) -> dict:
@@ -63,7 +62,7 @@ class Config(pydantic.BaseModel):
                                 ":reject",
                                 [instance.to_dict() for instance in self.denylist],
                             ]
-                        }
+                        },
                     ],
                 }
             ]

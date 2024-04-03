@@ -1,7 +1,5 @@
-from typing import Optional
-
 from django.http import HttpResponse
-from django.shortcuts import loader, render
+from django.shortcuts import render
 
 import thorax_core.denylist as denylist
 from thorax_core.settings import get_settings
