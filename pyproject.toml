@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "allowlist-editor"
+name = "thorax-fe"
 version = "0.1.0"
 description = ""
 authors = ["Mar <maaaaaaaaaaaaaaaaaaaaar@gmail.com>"]
