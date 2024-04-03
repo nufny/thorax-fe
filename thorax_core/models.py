@@ -21,19 +21,28 @@ class Instance(pydantic.BaseModel):
 
 class Config(pydantic.BaseModel):
     allowlist: list[Instance]
+    denylist: list[Instance]
 
     @classmethod
     def from_dict(cls, data: dict) -> "Config":
-        mrf_simple = [
-            config
-            for config in data
-            if "db" in config and config["db"][0] == ":accept"
-        ][0]
-        instances = [
-            tup for tup in mrf_simple["value"] if tup["tuple"][0] == ":accept"
-        ][0]["tuple"][1]
+        def parse_simple_policy(policy: str) -> list[dict]:
+            config = [
+                config
+                for config in data
+                if "db" in config and policy in config["db"]
+            ]
+            if len(config) == 0:
+                return []
+            config = config[0]
+            return [
+                tup for tup in config["value"] if tup["tuple"][0] == policy
+            ][0]["tuple"][1]
+        allowlist = parse_simple_policy(":accept")
+        denylist = parse_simple_policy(":reject")
+
         return Config(
-            allowlist=[Instance.from_dict(instance) for instance in instances]
+            allowlist=[Instance.from_dict(instance) for instance in allowlist],
+            denylist=[Instance.from_dict(instance) for instance in denylist]
         )
 
     def to_dict(self) -> dict:
@@ -47,6 +56,12 @@ class Config(pydantic.BaseModel):
                             "tuple": [
                                 ":accept",
                                 [instance.to_dict() for instance in self.allowlist],
+                            ]
+                        },
+                        {
+                            "tuple": [
+                                ":reject",
+                                [instance.to_dict() for instance in self.denylist],
                             ]
                         }
                     ],
